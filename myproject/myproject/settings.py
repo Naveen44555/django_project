@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'basic.middleware.basicMiddleware'
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -79,7 +80,7 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "5354r",
+        'NAME': "django_53r",
          'USER':"root",
          'PASSWORD':'Naveen@93',
          'HOST':'127.0.0.1',

@@ -17,13 +17,15 @@ def sample1(request):
     return HttpResponse('welcome to django')
 
 def sampleInfo(request):
-    # data={"name":"naveen",'age':23,'city':'hyd'}
-    data={'result':[2,4,5,6]}
+    data={"name":"naveen",'age':23,'city':'hyd'}
+    # data={'result':[2,4,5,6]}
     return JsonResponse(data)
 
 def dynamicResponse(request):
     name=request.GET.get("name",'honey')
     city=request.GET.get("city",'hyd')
+    age=request.GET.get("age",3)
+    return JsonResponse({"name":name,"city":city,"age":age})
 
 def add(request):
     a=request.GET.get("a",5)
@@ -75,21 +77,64 @@ def addstudent(request):
         # except Exception as e:
     elif request.method  =="GET": 
         result = list(Students.objects.values())
-        print(result)
+        for i in result:
+            print(i)
         return JsonResponse({"status":"ok","data":result},status=200)
+
+        # get all records
+        # results=list(Students.objects.all().values())
+        # return JsonResponse({"status":"ok","data":results},status=200)
+        
+        # # get a specific record by id
+        # data=json.loads(request.body)
+        # ref_id=data.get("id")
+        # results=list(Students.objects.filter(id=ref_id).values())
+        # return JsonResponse({"status":"ok","data":results},status=200)
+
+        # filter by age >=20
+        # data=json.loads(request.body)
+        # ref_age=data.get("age")
+        # results=list(Students.objects.filter(age__gte=ref_age).values())
+        # return JsonResponse({"status":"ok","data":results},status=200)
+
+        # # filter by age<=25
+        # data=json.loads(request.body)
+        # ref_age=data.get("age")
+        # results=list(Students.objects.filter(age__lte=ref_age).values())
+        # return JsonResponse({"status":"ok","data":results},status=200)
+
+        # order by name
+        # results=list(Students.objects.order_by('name').values())
+        # return JsonResponse({"status":"ok","data":results},status=200)
+    
+
+        # get unique ages
+        # results=list(Students.objects.values('age').distinct())
+        # return JsonResponse({"status":"ok","data":results},status=200)
+
+        # # count total students
+        results=Students.objects.count()
+        return JsonResponse({"status":"ok","data":results},status=200)
+    
     elif request.method =="PUT":
         data = json.loads(request.body)
         ref_id =data.get("id")  #getting id
         new_email=data.get("email")  #getting email
-        existing_student=students.objects.get(id=ref_id)
+        existing_student=Students.objects.get(id=ref_id)
         existing_student.email=new_email
         existing_student.save()
+        updated_data=list(Students.objects.filter(id=ref_id).values())
         # print(existing_student)
 
-        return JsonResponse({"req":"put method requested"},status=200)
+        return JsonResponse({"status":"ok","data":updated_data},status=200)
     
     elif request.method == "DELETE":
-        return JsonResponse({"req":"delete method requested"},status=200)
+        data=json.loads(request.body)
+        ref_id=data.get("id")
+        get_deleting_data=list(Students.objects.filter(id=ref_id).values())
+        to_be_delete=Students.objects.get(id=ref_id)
+        to_be_delete.delete()
+        return JsonResponse({"req":"success","message":"Studentsrecords delete successfully","deleted data":get_deleting_data },status=200)
             # return JsonResponse({"status": "error", "message": str(e)}, status=400)
     return JsonResponse({"error": "Use POST method"}, status=400)
 
