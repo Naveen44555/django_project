@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-g@@56@t0k#&2^oeca96w^4xh$(54=7xed%h%rp-lw8ju9bx-$l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-project-aa04.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+      # add your app here 👇
+    'basic'
     
 ]
 
@@ -76,8 +78,16 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "5354r",
+         'USER':"root",
+         'PASSWORD':'Naveen@93',
+         'HOST':'127.0.0.1',
+         "PORT":"3306",
+         "OPTIONS":{
+            'charset':'utf8mb4',
+            'init_command':"SET Sql_mode='STRICT_TRANS_TABLES'"
+            }
     }
 }
 

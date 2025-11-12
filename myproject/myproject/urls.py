@@ -25,6 +25,10 @@ from basic.views import add
 from basic.views import mult
 from basic.views import sub
 from basic.views import div
+from basic.views import health
+from basic.views import addstudent
+# from basic.views import employeedata
+from basic.views import new
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,6 +39,11 @@ urlpatterns = [
 
     path('sum/',add),
     path("mult/",mult),
-    path("sub",sub),
-    path("div",div)
+    path("sub/",sub),
+    path("div/",div),
+    path("health/",health),
+    path('student/',addstudent),
+    path('newpost/',new)
+    # path('employee',employeedata)
 ]
+
